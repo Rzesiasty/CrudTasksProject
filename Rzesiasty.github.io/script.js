@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  var apiRoot = 'https://intense-springs-06026.herokuapp.com/v1/task';
+  var apiRoot = 'https://intense-springs-06026.herokuapp.com/v1/task/';
   var datatableRowTemplate = $('[data-datatable-row-template]').children()[0];
   var tasksContainer = $('[data-tasks-container]');
 
@@ -89,10 +89,17 @@ $(document).ready(function() {
 
     $.ajax({
       url: requestUrl,
+	  type: 'FIRE',
       method: 'POST',
       processData: false,
       contentType: "application/json; charset=utf-8",
       dataType: 'json',
+	  success: function(data,status,jqXHR) {
+      console.log(data);
+   },
+	error: function() {
+      alert('CORS error');
+   },
       data: JSON.stringify({
         title: taskTitle,
         content: taskContent
