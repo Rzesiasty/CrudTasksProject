@@ -97,9 +97,6 @@ $(document).ready(function() {
 	  success: function(data,status,jqXHR) {
       console.log(data);
    },
-	error: function() {
-      alert('CORS error');
-   },
       data: JSON.stringify({
         title: taskTitle,
         content: taskContent
