@@ -1,30 +1,58 @@
-plugins {
-    id 'org.springframework.boot'  version '2.2.0.M5'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-    id 'java'
-    id 'idea'
+buildscript {
+    ext {
+        springBootVersion = '2.0.0.M6'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 group = 'com.crud'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven { url 'https://repo.spring.io/milestone' }
-    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    compile('org.projectlombok:lombok')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile('mysql:mysql-connector-java')
-    annotationProcessor('org.projectlombok:lombok')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-}
 
-test {
-    useJUnitPlatform()
+    // baza danych mysql
+    compile('mysql:mysql-connector-java')
+
+    // biblioteka umozliwiajaca wygodne transformowanie obiektu na JSON
+    compile('com.google.code.gson:gson:2.8.2')
+
+    // lombok, czyli adnotacje dodajace gettery, settery, konstruktory itp.
+    compile('org.projectlombok:lombok:1.16.18')
+
+    // actuator czyli dodatkowe mappingi typu status, health, itp.
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+
+    // Swagger - dokumentacja dla naszego API
+    compile('io.springfox:springfox-swagger2:2.7.0')
+    compile('io.springfox:springfox-swagger-ui:2.7.0')
+
+    // wysylanie maili
+    compile('org.springframework.boot:spring-boot-starter-mail')
+
+    // biblioteka wspierajaca tworzenie widokow, szablonow maili i wszystkim co zwiazane z relacja backend -> frontend
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+
+    // grupa zaleznosci niezbedna do uruchomienia testow naszej aplikacji
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
