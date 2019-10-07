@@ -22,6 +22,7 @@ dependencies {
     compile('mysql:mysql-connector-java')
     annotationProcessor('org.projectlombok:lombok')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
 }
 
 test {
