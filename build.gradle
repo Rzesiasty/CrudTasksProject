@@ -1,30 +1,57 @@
-plugins {
-    id 'org.springframework.boot'  version '2.2.0.M5'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-    id 'java'
+buildscript {
+    ext {
+        springBootVersion = '2.1.9.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+//apply plugin: 'war'
 
 group = 'com.crud'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven { url 'https://repo.spring.io/milestone' }
-    maven { url 'https://repo.spring.io/snapshot' }
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    compile('org.projectlombok:lombok')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile('mysql:mysql-connector-java')
-    annotationProcessor('org.projectlombok:lombok')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.1'
-}
 
-test {
-    useJUnitPlatform()
+    // mysql data base
+    compile('mysql:mysql-connector-java')
+
+    // library enabling convenient object transformation to JSON
+    compile('com.google.code.gson:gson:2.8.2')
+
+    //lombok
+    compile('org.projectlombok:lombok:1.16.18')
+
+    // actuator 
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+
+    // Swagger - APIs documentation 
+    compile('io.springfox:springfox-swagger2:2.7.0')
+    compile('io.springfox:springfox-swagger-ui:2.7.0')
+
+    // mail sending 
+    compile('org.springframework.boot:spring-boot-starter-mail')
+
+    // library supporting the creation of views, e-mail templates and everything related to the relationship backend -> frontend
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+
+    // dependency group necessary to run tests of our application
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
