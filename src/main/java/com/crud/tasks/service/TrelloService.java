@@ -38,5 +38,4 @@ public class TrelloService {
         System.out.println("sending mail");
         return newCard;
     }
-
 }
