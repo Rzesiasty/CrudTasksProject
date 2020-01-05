@@ -32,5 +32,4 @@ public class DbService {
     public void deleteTask(final Task task) {
         repository.delete(task);
     }
-
 }
