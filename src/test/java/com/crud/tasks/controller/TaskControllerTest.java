@@ -37,9 +37,6 @@ public class TaskControllerTest {
     @MockBean
     private TaskFacade facade;
 
-    @Mock
-    private DbService service;
-
     @Test
     public void shouldFetchTasks() throws Exception {
         //Given
